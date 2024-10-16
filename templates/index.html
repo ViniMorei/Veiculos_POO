@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aluguel de Veículos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>Aluguel de veículos:</h1>
-    <div>
-        <a href="/alugar_carros"><button>Alugar Carro</button></a>
-        <a href="/alugar_motos"><button>Alugar moto</button></a>
-    </div>
-    <div>
-        <a href="/listar_veiculos"><button>Listar veículos</button></a>
-    </div>
+    <ul>
+        <li>
+            <a href="/alugar_carros"><button>Alugar Carro</button></a>
+        </li>
+        <li>
+            <a href="/alugar_motos"><button>Alugar moto</button></a>
+        </li>
+        <li>
+            <a href="/listar_veiculos"><button>Listar veículos</button></a>
+        </li>
+    </ul>
 </body>
 </html>
