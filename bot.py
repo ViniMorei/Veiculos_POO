@@ -32,7 +32,7 @@ def processar_form(form_veiculo: dict):
         cilindrada = form_veiculo['cilindrada']
         moto = instanciar_moto(nome, ano, diaria, cilindrada)
         id = Veiculo.veiculos_cadastrados
-        linha = f'{id},{moto.nome},{moto.ano},{moto.diaria},{moto.__class__.__name__}, ,{moto.cilindrada}\n'
+        linha = f'{id},{moto.nome},{moto.ano},{moto.diaria},{moto.__class__.__name__},,{moto.cilindrada}\n'
         print(linha)
 
     
@@ -40,7 +40,7 @@ def processar_form(form_veiculo: dict):
 
 
 def escrever_linha(nome_arquivo: str, linha: str):
-    with open(nome_arquivo, 'a') as arquivo:
+    with open(nome_arquivo, 'a', encoding='utf-8') as arquivo:
         arquivo.write(linha)
 
 

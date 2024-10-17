@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 # Leitura dos dados criados para visualização no template
 def ler_dados():
-    with open('veiculos.txt', 'r') as arquivo:
+    with open('veiculos.txt', 'r', encoding='utf-8') as arquivo:
         linhas = arquivo.readlines()
 
     dados = []
