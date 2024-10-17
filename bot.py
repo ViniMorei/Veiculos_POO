@@ -1,6 +1,7 @@
 from botcity.web import WebBot, Browser, By
 from botcity.maestro import *
 from webdriver_manager.chrome import ChromeDriverManager
+from faker import Faker
 
 from classes.Veiculo import Veiculo
 from classes.Carro import Carro
@@ -44,6 +45,76 @@ def escrever_linha(nome_arquivo: str, linha: str):
         arquivo.write(linha)
 
 
+def inventar_carros():
+    fake = Faker()
+    nome = f'{fake.word().capitalize()} {fake.word().capitalize()}'
+    ano = fake.year()
+    diaria = fake.random_number(digits=3)
+    combustivel = fake.random_element(elements=('Gasolina', 'Etanol', 'Diesel', 'GNV', 'Elétrico'))
+    
+    return nome, ano, diaria, combustivel
+    
+
+def inventar_motos():
+    fake = Faker()
+    nome = f'{fake.word().capitalize()} {fake.word().capitalize()}'
+    ano = fake.year()
+    diaria = fake.random_number(digits=3)
+    cilindradas = fake.random_element(elements=(100, 150, 200, 250))
+    
+    return nome, ano, diaria, cilindradas
+    
+
+def preencher_forms(bot:WebBot, carros: int, motos: int):
+    for _ in range(carros):
+        bot.browse('http://127.0.0.1:5000')
+        bot.wait(500)
+        
+        alugar_carros = bot.find_element('/html/body/ul/li[1]/a/button', By.XPATH)
+        alugar_carros.click()
+        bot.wait(500)
+        
+        nome, ano, diaria, combustivel = inventar_carros()
+        input_nome = bot.find_element('//*[@id="nome"]', By.XPATH)
+        input_ano = bot.find_element('//*[@id="ano"]', By.XPATH)
+        input_diaria = bot.find_element('//*[@id="diaria"]', By.XPATH)
+        input_combustivel = bot.find_element('//*[@id="combustivel"]', By.XPATH)
+        btn_submit = bot.find_element('/html/body/div[1]/form/input[5]', By.XPATH)
+        
+        input_nome.send_keys(nome)
+        input_ano.send_keys(ano)
+        input_diaria.send_keys(diaria)
+        input_combustivel.send_keys(combustivel)
+        
+        btn_submit.click()
+        bot.wait(500)
+
+    for _ in range(motos):
+        bot.browse('http://127.0.0.1:5000')
+        bot.wait(500)
+        
+        alugar_motos = bot.find_element('/html/body/ul/li[2]/a/button', By.XPATH)
+        alugar_motos.click()
+        bot.wait(500)
+        
+        nome, ano, diaria, cilindrada = inventar_motos()
+        input_nome = bot.find_element('//*[@id="nome"]', By.XPATH)
+        input_ano = bot.find_element('//*[@id="ano"]', By.XPATH)
+        input_diaria = bot.find_element('//*[@id="diaria"]', By.XPATH)
+        input_cilindrada = bot.find_element('//*[@id="cc"]', By.XPATH)
+        btn_submit = bot.find_element('/html/body/div[1]/form/input[5]', By.XPATH)
+        
+        input_nome.send_keys(nome)
+        input_ano.send_keys(ano)
+        input_diaria.send_keys(diaria)
+        input_cilindrada.send_keys(cilindrada)
+        
+        btn_submit.click()
+        bot.wait(500)
+        
+    return
+
+
 def main():
     maestro = BotMaestroSDK.from_sys_args()
     execution = maestro.get_execution()
@@ -56,7 +127,10 @@ def main():
     bot.driver_path = ChromeDriverManager().install()
 
     try:
-        pass
+        print("Automação do aluguel de veículos!")
+        carros = int(input('Quantos carros você quer alugar? '))
+        motos = int(input('Quantas motos você quer alugar? '))
+        preencher_forms(bot, carros, motos)
     
     except Exception as ex:
         print(ex)
