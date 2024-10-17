@@ -23,7 +23,8 @@ li {
     text-align: center;
 }
 
-button {
+/* Botões Gerais */
+button, .btn-action {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -35,10 +36,18 @@ button {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
+    min-width: 100px; /* Tamanho mínimo para todos os botões */
 }
 
-button:hover {
+/* Hover para Botões Gerais */
+button:hover, .btn-action:hover {
     background-color: #45a049;
+}
+
+/* Botões em Tabelas */
+.btn-action {
+    padding: 8px 15px; /* Ajuste de tamanho dos botões dentro de tabelas */
+    margin-right: 5px; /* Espaçamento entre botões de ação */
 }
 
 /* Estilos para Formulários */
@@ -103,4 +112,23 @@ tr:nth-child(even) {
 
 tr:hover {
     background-color: #ddd;
+}
+
+/* Estilos para Botões de Navegação (Links com Botões) */
+a button {
+    margin: 0 auto;
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    border: none;
+    background-color: #4CAF50;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+a button:hover {
+    background-color: #45a049;
 }
