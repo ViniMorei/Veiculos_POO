@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from bot import processar_form
 
 app = Flask(__name__)
 
@@ -41,6 +42,23 @@ def alugar_motos():
 def listar_veiculos():
     dados = ler_dados()
     return render_template('veiculos.html', dados=dados)
+
+
+@app.route('alugar_carros/instanciar')
+def alugar_carros_instanciar():
+    nome = request.form['nome']
+    ano = request.form['ano']
+    diaria = request.form['diaria']
+    combustivel = request.form['combustivel']
+
+    carro = {
+        'nome' : nome,
+        'ano' : ano,
+        'diaria' : diaria,
+        'combustivel' : combustivel
+    }
+
+    processar_form(carro)
 
 
 if __name__ == '__main__':
