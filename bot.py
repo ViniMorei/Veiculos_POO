@@ -25,13 +25,15 @@ def processar_form(form_veiculo: dict):
         combustivel = form_veiculo['combustivel']
         carro = instanciar_carro(nome, ano, diaria, combustivel)
         id = Veiculo.veiculos_cadastrados
-        linha = f'{id},{carro.nome},{carro.ano},{carro.diaria},{carro.__class__.__name__},{carro.combustivel}, '
+        linha = f'{id},{carro.nome},{carro.ano},{carro.diaria},{carro.__class__.__name__},{carro.combustivel}, \n'
+        print(linha)
 
     elif 'cilindrada' in form_veiculo:
         cilindrada = form_veiculo['cilindrada']
         moto = instanciar_moto(nome, ano, diaria, cilindrada)
         id = Veiculo.veiculos_cadastrados
-        linha = f'{id},{moto.nome},{moto.ano},{moto.diaria},{moto.__class__.__name__}, ,{moto.cilindrada}'
+        linha = f'{id},{moto.nome},{moto.ano},{moto.diaria},{moto.__class__.__name__}, ,{moto.cilindrada}\n'
+        print(linha)
 
     
     escrever_linha('veiculos.txt', linha)
