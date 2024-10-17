@@ -23,37 +23,17 @@ li {
     text-align: center;
 }
 
-/* Botões Gerais */
-button, .btn-action {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    min-width: 100px; /* Tamanho mínimo para todos os botões */
-}
-
-/* Hover para Botões Gerais */
-button:hover, .btn-action:hover {
-    background-color: #45a049;
-}
-
-/* Botões em Tabelas */
-.btn-action {
-    padding: 8px 15px; /* Ajuste de tamanho dos botões dentro de tabelas */
-    margin-right: 5px; /* Espaçamento entre botões de ação */
+/* Contêiner para Formulário e Tabela */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px; /* Espaçamento entre a tabela e o formulário/botões */
 }
 
 /* Estilos para Formulários */
 form {
-    max-width: 600px;
-    margin: 0 auto;
+    flex-grow: 1;
     padding: 20px;
     background-color: white;
     border-radius: 8px;
@@ -88,8 +68,36 @@ input[type="submit"]:hover {
     background-color: #45a049;
 }
 
+/* Estilos para Botões */
+button, .btn-action {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    min-width: 100px; /* Tamanho mínimo para todos os botões */
+    margin-top: 10px;
+}
+
+button:hover, .btn-action:hover {
+    background-color: #45a049;
+}
+
+/* Botões em Tabelas */
+.btn-action {
+    padding: 8px 15px; /* Ajuste de tamanho dos botões dentro de tabelas */
+    margin-right: 5px; /* Espaçamento entre botões de ação */
+}
+
 /* Estilos para a Tabela */
 table {
+    flex-grow: 1;
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -116,7 +124,6 @@ tr:hover {
 
 /* Estilos para Botões de Navegação (Links com Botões) */
 a button {
-    margin: 0 auto;
     display: inline-block;
     text-decoration: none;
     color: white;
@@ -131,4 +138,11 @@ a button {
 
 a button:hover {
     background-color: #45a049;
+}
+
+/* Estilos para o contêiner de botões */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
