@@ -3,7 +3,7 @@ from bot import processar_form
 
 app = Flask(__name__)
 
-
+# Leitura dos dados criados para visualização no template
 def ler_dados():
     with open('veiculos.txt', 'r') as arquivo:
         linhas = arquivo.readlines()
@@ -23,6 +23,9 @@ def ler_dados():
     
     return dados
 
+
+
+# Rotas de template
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -44,7 +47,8 @@ def listar_veiculos():
     return render_template('veiculos.html', dados=dados)
 
 
-@app.route('alugar_carros/instanciar')
+# Rotas de POST
+@app.route('/alugar_carros/instanciar', methods=['POST'])
 def alugar_carros_instanciar():
     nome = request.form['nome']
     ano = request.form['ano']
@@ -59,7 +63,28 @@ def alugar_carros_instanciar():
     }
 
     processar_form(carro)
+    
+    return listar_veiculos()
 
+
+@app.route('/alugar_motos/instanciar', methods=['POST'])
+def alugar_motos_instanciar():
+    nome = request.form['nome']
+    ano = request.form['ano']
+    diaria = request.form['diaria']
+    cilindrada = request.form['cc']
+
+    moto = {
+        'nome' : nome,
+        'ano' : ano,
+        'diaria' : diaria,
+        'cilindrada' : cilindrada
+    }
+    
+    processar_form(moto)
+    
+    return listar_veiculos()
+    
 
 if __name__ == '__main__':
     app.run()
