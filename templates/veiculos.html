@@ -39,14 +39,15 @@
                     {{ dado.tipo }}
                 </td>
                 <td>
-                    {{ dado.combustivel }}
+                    {{ dado.combustivel or 'N/A'}}
                 </td>
                 <td>
-                    {{ dado.cilindradas }}
+                    {{ dado.cilindradas or 'N/A'}}
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <a href="/"><button>Voltar para o início</button></a>
 </body>
 </html>

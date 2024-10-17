@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Alugue um carro:</h1>
-    <form>
+    <form action="/alugar_carros/instanciar" method="POST">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
         
@@ -23,5 +23,6 @@
 
         <input type="submit" value="Alugar">
     </form>
+    <a href="/"><button>Voltar para o início</button></a>
 </body>
 </html>
