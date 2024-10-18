@@ -1,29 +1,8 @@
 from flask import Blueprint, render_template, request
 from automation.bot import processar_form
-
+from api.services import VeiculoService
 
 routes = Blueprint('routes', __name__)
-
-
-# Leitura dos dados criados para visualização no template
-def ler_dados():
-    with open('veiculos.txt', 'r', encoding='utf-8') as arquivo:
-        linhas = arquivo.readlines()
-
-    dados = []
-    for linha in linhas:
-        id, nome, ano, diaria, tipo, comb, cc = linha.strip().split(',')
-        dados.append({
-            'id' : id,
-            'nome' : nome,
-            'ano' : ano,
-            'diaria' : diaria,
-            'tipo' : tipo,
-            'combustivel' : comb,
-            'cilindradas' : cc
-        })
-    
-    return dados
 
 
 # Rotas de template
@@ -44,7 +23,7 @@ def alugar_motos():
 
 @routes.route('/listar_veiculos')
 def listar_veiculos():
-    dados = ler_dados()
+    dados = VeiculoService.get_all()
     return render_template('veiculos.html', dados=dados)
 
 

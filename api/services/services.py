@@ -7,22 +7,29 @@ from api.models import Veiculo, Carro, Motocicleta
 class VeiculoService():
 
     # Recupera todos os veículos cadastrados
-    @classmethod
+    @staticmethod
     def get_all():
         with Session() as session:
             try:
                 veiculos = session.query(Veiculo).all()
-                return veiculos
+                return [{
+                    'id': v.id, 
+                    'nome': v.nome, 
+                    'ano': v.ano, 
+                    'diaria': v.diaria, 
+                    'tipo': v.tipo, 
+                    'combustivel': v.combustivel if hasattr(v, 'combustivel') else '', 
+                    'cilindradas': v.cilindradas if hasattr(v, 'cilindradas') else ''
+                    } for v in veiculos]
             
             except Exception as ex:
                 print(f'Erro ao recuperar os veículos: {ex}')
+                return []
 
-            finally:
-                session.close()
         
     
     # Recupera só um veículo, a partir da chave primária
-    @classmethod
+    @staticmethod
     def get_by_id(id_veiculo: int):
         with Session() as session:
             try:
@@ -37,7 +44,7 @@ class VeiculoService():
         
     
     # Cria uma instância de Carro no BD
-    @classmethod
+    @staticmethod
     def add_carro(nome: str, ano: int, diaria: float, combustivel: str):
         with Session() as session:
             novo_carro = Carro(
@@ -61,7 +68,7 @@ class VeiculoService():
 
 
     # Cria uma instância de Moto no BD
-    @classmethod
+    @staticmethod
     def add_carro(nome: str, ano: int, diaria: float, cilindradas: int):
         with Session() as session:
             nova_moto = Motocicleta(
