@@ -1,17 +1,18 @@
-from sqlalchemy import Integer, Float, String
+from sqlalchemy import String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
-from api.models.base import Base
+from api.models.veiculo_model import Veiculo
 
 
-class Carro(Base):
+class Carro(Veiculo):
     __tablename__ = 'carros'
 
-    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    nome: Mapped[str] = mapped_column(String(50), nullable=False)
-    ano: Mapped[int] = mapped_column(Integer, nullable=False)
-    diaria: Mapped[float] = mapped_column(Float, nullable=False)
+    id: Mapped[int] = mapped_column(ForeignKey('veiculos.id'), primary_key=True)
     combustivel: Mapped[str] = mapped_column(String(50), nullable=False)
+
+    __mapper_args__ = {
+        'polymorphic_identity' : 'Carro'
+    }
 
 
     def __repr__(self):
