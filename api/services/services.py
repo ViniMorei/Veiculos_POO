@@ -1,10 +1,12 @@
+from flask import request, jsonify
+
 from api.config.database import Session
 from api.models import Veiculo, Carro, Motocicleta
 
 
 # Definição das funções e lógica que 
 # será utilizada dentro das rotas
-class VeiculoService():
+class VeiculoService:
 
     # Recupera todos os veículos cadastrados
     @staticmethod
@@ -69,7 +71,7 @@ class VeiculoService():
 
     # Cria uma instância de Moto no BD
     @staticmethod
-    def add_carro(nome: str, ano: int, diaria: float, cilindradas: int):
+    def add_moto(nome: str, ano: int, diaria: float, cilindradas: int):
         with Session() as session:
             nova_moto = Motocicleta(
                 nome=nome,
@@ -89,3 +91,79 @@ class VeiculoService():
 
             finally:
                 session.close()
+
+    
+
+    # Editar
+    @staticmethod
+    def update_veiculo(id_veiculo: int, novos_dados: dict):
+        with Session() as session:
+            try:
+                veiculo = session.query(Veiculo).filter(Veiculo.id == id_veiculo).first()
+
+                if veiculo:
+                    veiculo.nome = novos_dados.get('nome', veiculo.nome)
+                    veiculo.ano = novos_dados.get('ano', veiculo.ano)
+                    veiculo.diaria = novos_dados.get('diaria', veiculo.diaria)
+                    veiculo.tipo = novos_dados.get('tipo', veiculo.tipo)
+
+                    if isinstance(veiculo, Carro):
+                        veiculo.combustivel = novos_dados.get('combustivel', veiculo.combustivel)
+
+                    if isinstance(veiculo, Motocicleta):
+                        veiculo.cilindradas = novos_dados.get('cilindradas', veiculo.cilindradas)
+
+                    session.commit()
+                    return veiculo
+                else:
+                    return None
+
+            except Exception as ex:
+                session.rollback()
+                print(f'Erro ao atualizar veículo: {ex}')
+            
+            finally:
+                session.close()
+    
+    
+    # Excluir
+    @staticmethod
+    def delete_veiculo(id_veiculo: int):
+        with Session() as session:
+            try:
+                veiculo = session.query(Veiculo).filter(Veiculo.id == id_veiculo).first()
+
+                if veiculo:
+                    if isinstance(veiculo, Carro):
+                        carro = session.query(Carro).filter(Carro.id == id_veiculo).first()
+                        if carro:
+                            session.delete(carro)
+                    if isinstance(veiculo, Motocicleta):
+                        moto = session.query(Motocicleta).filter(Motocicleta.id == id_veiculo).first()
+                        if moto:
+                            session.delete(moto)
+
+                    session.delete(veiculo)
+                    session.commit()
+                    
+                    return True
+                else:
+                    return False
+
+            except Exception as ex:
+                session.rollback()
+                print(f'Erro ao excluir veículo: {ex}')
+
+            finally:
+                session.close()
+
+
+    # Funções diversas
+    @staticmethod
+    def calcularAluguel():
+        pass
+
+
+    @staticmethod
+    def aplicarAumento():
+        pass

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, jsonify
 from automation.bot import processar_form
 from api.services import VeiculoService
 
@@ -42,6 +42,7 @@ def alugar_carros_instanciar():
         'combustivel' : combustivel
     }
 
+    VeiculoService.add_carro(nome=nome, ano=ano, diaria=diaria, combustivel=combustivel)
     processar_form(carro)
     
     return listar_veiculos()
@@ -61,7 +62,30 @@ def alugar_motos_instanciar():
         'cilindrada' : cilindrada
     }
     
+    VeiculoService.add_moto(nome=nome, ano=ano, diaria=diaria, cilindradas=cilindrada)
     processar_form(moto)
     
     return listar_veiculos()
     
+
+# Rotas de PUT
+@routes.route('/atualizar_veiculo/<int:id_veiculo>', methods=['PUT'])
+def atualizar_veiculo(id_veiculo: int):
+    novos_dados = request.json
+    veiculo = VeiculoService.update_veiculo(id_veiculo, novos_dados)
+
+    if veiculo:
+        return jsonify({'mensagem' : 'Veículo atualizado com sucesso!'}), 200
+    else:
+        return jsonify({'mensagem' : 'Veículo não encontrado.'}), 404
+
+
+# Rotas de DELETE
+@routes.route('/excluir_veiculo/<int:id_veiculo>', methods=['DELETE'])
+def excluir_veiculo(id_veiculo: int):
+    sucesso = VeiculoService.delete_veiculo(id_veiculo)
+
+    if sucesso:
+        return jsonify({'mensagem' : 'Veículo excluído com sucesso!'}), 200
+    else:
+        return jsonify({'mensagem' : 'Veículo não encontrado.'}), 404
