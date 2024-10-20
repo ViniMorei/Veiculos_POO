@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem dos veículos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Todos os veículos</h1>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Ano</th>
+                    <th>Valor da diária</th>
+                    <th>Tipo</th>
+                    <th>Combustível</th>
+                    <th>Cilindradas</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dado in dados %}
+                <tr>
+                    <td>{{ dado.id }}</td>
+                    <td>{{ dado.nome }}</td>
+                    <td>{{ dado.ano }}</td>
+                    <td>{{ dado.diaria }}</td>
+                    <td>{{ dado.tipo }}</td>
+                    <td>{{ dado.combustivel or 'N/A'}}</td>
+                    <td>{{ dado.cilindradas or 'N/A'}}</td>
+                    <td>
+                        <button class="expandir-btn btn-action"
+                                dado-id="{{ dado.id }}"
+                                dado-nome="{{ dado.nome }}"
+                                dado-ano="{{ dado.ano }}"
+                                dado-diaria="{{ dado.diaria }}"
+                                dado-tipo="{{ dado.tipo }}"
+                                dado-combustivel="{{ dado.combustivel or 'N/A' }}"
+                                dado-cilindradas="{{ dado.cilindradas or 'N/A' }}"
+                                onclick="abrirModal(this)">
+                            Expandir
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="button-container">
+        <a href="/"><button>Voltar para o início</button></a>
+    </div>
+    
+    <!-- Modal tabindex="-1" role="dialog"-->
+    <div class="modal" id="detalhesModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Detalhes do Veículo</h3>
+                    <span class="close" onclick="fecharModal()">&times;</span>
+                </div>
+
+                <div class="modal-body">
+                    <p><strong>ID: </strong> <span id="modal-id"></span></p>
+                    <p><strong>Nome: </strong> <input type="text" id="modal-nome"></p>
+                    <p><strong>Ano: </strong> <input type="number" id="modal-ano"></p>
+                    <p><strong>Diária: </strong> <input type="number" id="modal-diaria"></p>
+                    <p><strong>Tipo: </strong> <input type="text" id="modal-tipo" readonly></p>
+                    <p><strong>Combustível: </strong> <input type="text" id="modal-combustivel" disabled></p>
+                    <p><strong>Cilindradas: </strong> <input type="number" id="modal-cilindradas" disabled></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn editar-btn" onclick="editarItem()">Editar</button>
+                    <button type="button" class="btn excluir-btn" onclick="excluirItem()">Excluir</button>
+                    <button type="button" class="btn calcular-btn" onclick="calcularAluguel()">Calcular Aluguel</button>
+                    <button type="button" class="btn aplicar-btn" onclick="aplicarAumento()">Aplicar Aumento</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

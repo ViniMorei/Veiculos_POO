@@ -1,0 +1,245 @@
+/* Estilos Gerais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Estilos para Listas e Botões */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* Estilos para containers e tabelas */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #dddddd;
+}
+
+th {
+    background-color: #1abc9c;
+    color: #ffffff;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilos para Formulários */
+form {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="submit"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para Botões */
+button, .btn-action {
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    min-width: 100px;
+    margin-right: 10px;
+}
+
+button:hover, .btn-action:hover {
+    background-color: #2980b9;
+}
+
+a button {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    border: none;
+    background-color: #2ecc71;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+a button:hover {
+    background-color: #45a049;
+}
+
+/* Botões em Tabelas */
+.btn-action {
+    padding: 8px 15px; 
+    margin-right: 5px; 
+}
+
+button.editar-btn {
+    background-color: #58d68d; 
+}
+
+button.editar-btn:hover {
+    background-color: #2ecc71;
+}
+
+button.excluir-btn {
+    background-color: #e74c3c;
+}
+
+button.excluir-btn:hover {
+    background-color: #c0392b;
+}
+
+button.calcular-btn {
+    background-color: #f39c12; /* Laranja para calcular */
+}
+
+button.calcular-btn:hover {
+    background-color: #e67e22;
+}
+
+/* Estilos para o contêiner de botões */
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Estilos para o modal */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-dialog {
+    width: 600px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 90vh;
+}
+
+.modal-header, .modal-body, .modal-footer {
+    margin-bottom: 10px;
+}
+
+.modal-body p {
+    margin: 10px 0;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 15px;
+}
+
+.modal-footer button {
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.modal-title {
+    font-size: 18px;
+    margin: 0;
+}
+
+.modal input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+.close {
+    color: #333333;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: #cc3120;
+    text-decoration: none;
+    cursor: pointer;
+}

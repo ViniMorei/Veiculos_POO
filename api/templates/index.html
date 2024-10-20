@@ -18,6 +18,13 @@
         <li>
             <a href="/listar_veiculos"><button>Listar veículos</button></a>
         </li>
+        <li>
+            <button type="button" onclick="aplicarAumento()">Aumentar Diária de Todos</button>
+        </li>
     </ul>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
