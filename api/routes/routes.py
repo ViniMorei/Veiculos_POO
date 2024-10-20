@@ -89,3 +89,9 @@ def excluir_veiculo(id_veiculo: int):
         return jsonify({'mensagem' : 'Veículo excluído com sucesso!'}), 200
     else:
         return jsonify({'mensagem' : 'Veículo não encontrado.'}), 404
+    
+
+# Rotas diversas
+@routes.route('/aplicar_aumento', methods=['POST'])
+def aplicar_aumento():
+    pass

@@ -25,29 +25,15 @@
             <tbody>
                 {% for dado in dados %}
                 <tr>
+                    <td>{{ dado.id }}</td>
+                    <td>{{ dado.nome }}</td>
+                    <td>{{ dado.ano }}</td>
+                    <td>{{ dado.diaria }}</td>
+                    <td>{{ dado.tipo }}</td>
+                    <td>{{ dado.combustivel or 'N/A'}}</td>
+                    <td>{{ dado.cilindradas or 'N/A'}}</td>
                     <td>
-                        {{ dado.id }}
-                    </td>
-                    <td>
-                        {{ dado.nome }}
-                    </td>
-                    <td>
-                        {{ dado.ano }}
-                    </td>
-                    <td>
-                        {{ dado.diaria }}
-                    </td>
-                    <td>
-                        {{ dado.tipo }}
-                    </td>
-                    <td>
-                        {{ dado.combustivel or 'N/A'}}
-                    </td>
-                    <td>
-                        {{ dado.cilindradas or 'N/A'}}
-                    </td>
-                    <td>
-                        <button class="expandir-btn"
+                        <button class="expandir-btn btn-action"
                                 dado-id="{{ dado.id }}"
                                 dado-nome="{{ dado.nome }}"
                                 dado-ano="{{ dado.ano }}"
@@ -64,36 +50,35 @@
             </tbody>
         </table>
     </div>
+
     <div class="button-container">
         <a href="/"><button>Voltar para o início</button></a>
     </div>
     
-
-    <div class="modal" id="detalhesModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    <!-- Modal tabindex="-1" role="dialog"-->
+    <div class="modal" id="detalhesModal">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">Detalhes do Veículo</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span class="close" onclick="fecharModal()">&times;</span>
                 </div>
 
                 <div class="modal-body">
                     <p><strong>ID: </strong> <span id="modal-id"></span></p>
-                    <p><strong>Nome: </strong> <span id="modal-nome"></span></p>
-                    <p><strong>Ano: </strong> <span id="modal-ano"></span></p>
-                    <p><strong>Diária: </strong> <span id="modal-diaria"></span></p>
-                    <p><strong>Tipo: </strong> <span id="modal-tipo"></span></p>
-                    <p><strong>Combustível: </strong> <span id="modal-combustivel"></span></p>
-                    <p><strong>Cilindradas: </strong> <span id="modal-cilindradas"></span></p>
+                    <p><strong>Nome: </strong> <input type="text" id="modal-nome"></p>
+                    <p><strong>Ano: </strong> <input type="number" id="modal-ano"></p>
+                    <p><strong>Diária: </strong> <input type="number" id="modal-diaria"></p>
+                    <p><strong>Tipo: </strong> <input type="text" id="modal-tipo" readonly></p>
+                    <p><strong>Combustível: </strong> <input type="text" id="modal-combustivel" disabled></p>
+                    <p><strong>Cilindradas: </strong> <input type="number" id="modal-cilindradas" disabled></p>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="editarItem()">Editar</button>
-                    <button type="button" class="btn btn-danger" onclick="excluirItem()">Excluir</button>
-                    <button type="button" class="btn btn-secondary" onclick="calcularAluguel()">Calcular Aluguel</button>
-                    <button type="button" class="btn btn-terciary" onclick="aplicarAumento()">Aplicar Aumento</button>
+                    <button type="button" class="btn editar-btn" onclick="editarItem()">Editar</button>
+                    <button type="button" class="btn excluir-btn" onclick="excluirItem()">Excluir</button>
+                    <button type="button" class="btn calcular-btn" onclick="calcularAluguel()">Calcular Aluguel</button>
+                    <button type="button" class="btn aplicar-btn" onclick="aplicarAumento()">Aplicar Aumento</button>
                 </div>
             </div>
         </div>
