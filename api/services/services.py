@@ -2,6 +2,8 @@ from flask import request, jsonify
 
 from api.config.database import Session
 from api.models import Veiculo, Carro, Motocicleta
+from classes.Carro import Carro as Carro_Classe
+from classes.Motocicleta import Motocicleta as Motocicleta_Classe
 
 
 # Definição das funções e lógica que 
@@ -160,10 +162,33 @@ class VeiculoService:
 
     # Funções diversas
     @staticmethod
-    def calcularAluguel():
-        pass
+    def calcularAluguel(id_veiculo: int, dias: int, desconto: float):
+        with Session() as session:
+            veiculo = session.query(Veiculo).filter(Veiculo.id == id_veiculo).first()
+            if veiculo:
+                if isinstance(veiculo, Carro):
+                    carro = Carro_Classe(veiculo.nome, veiculo.ano, veiculo.diaria, veiculo.combustivel)
+                    return carro.calcular_aluguel(dias, desconto)
+                
+                if isinstance(veiculo, Motocicleta):
+                    moto = Motocicleta_Classe(veiculo.nome, veiculo.ano, veiculo.diaria, veiculo.cilindradas)
+                    return moto.calcular_aluguel(dias, desconto)
+            
+            return False
 
 
     @staticmethod
-    def aplicarAumento():
-        pass
+    def aplicarAumento(valor):
+        with Session() as session:
+            try:
+                veiculos = session.query(Veiculo).all()
+                if veiculos:
+                    for veiculo in veiculos:
+                        veiculo.diaria += valor
+                        session.commit()
+                    
+                    return True
+            
+            except Exception as ex:
+                session.rollback()
+                print(f'Erro ao aplicar aumento: {ex}')

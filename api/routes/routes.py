@@ -92,6 +92,23 @@ def excluir_veiculo(id_veiculo: int):
     
 
 # Rotas diversas
-@routes.route('/aplicar_aumento', methods=['POST'])
+@routes.route('/calcular_aluguel/<int:id_veiculo>')
+def calcular_aluguel(id_veiculo):
+    dias = int(request.args.get('dias'))
+    desconto = float(request.args.get('desconto'))
+    total = VeiculoService.calcularAluguel(id_veiculo, dias, desconto)
+
+    if total:
+        return jsonify({'sucess': True, 'total': total}), 200
+    else:
+        return jsonify({'sucess': False, 'error': 'Veículo não encontrado!'}), 404
+
+
+@routes.route('/aplicar_aumento', methods=['PUT'])
 def aplicar_aumento():
-    pass
+    valor = float(request.args.get('valor'))
+
+    if VeiculoService.aplicarAumento(valor):
+        return jsonify({'sucess': True}), 200
+    else:
+        return jsonify({'sucess': False, 'error' : 'Erro ao aplicar o aumento!'})

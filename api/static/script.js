@@ -125,11 +125,45 @@ function excluirItem(){
 
 // Calcula o aluguel do veículo a partir da quantidade de dias inputada pelo usuário
 function calcularAluguel(){
+    var id = document.getElementById('modal-id').innerText;
+    var dias = prompt('Por quantos dias?');
+    var desconto = prompt('Quanto de desconto? (Em R$)', '0');
+    
 
+    if (dias && (dias > 0)){
+        fetch(`/calcular_aluguel/${id}?dias=${dias}&desconto=${desconto}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.sucess){
+                alert(`O valor total do aluguel por ${dias} dias é: R$ ${data.total}`);
+            } else{
+                alert(data.error);
+            }
+        });
+    } else{
+        alert('Insira um número válido de dias!');
+    }
 }
 
 
 // Aplica um aumento na taxa diária do veículo
 function aplicarAumento(){
+    var valor = prompt('Quanto você quer aplicar de aumento na diária de TODOS os veículos? (Em R$)', '0');
 
+    if (valor && (valor > 0)){
+        fetch(`/aplicar_aumento?valor=${valor}`, {
+            method: 'PUT'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.sucess){
+                alert(`Aumento de R$ ${valor} aplicado a todos os veículos!`);
+                location.reload();
+            } else{
+                alert(data.error);
+            }
+        }); 
+    } else{
+        alert('Insira um valor válido.');
+    }
 }
